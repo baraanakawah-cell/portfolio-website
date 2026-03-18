@@ -1,0 +1,61 @@
+       
+       .body-bg { background-color: #0D0D0D;}
+        .font-display { font-family: 'Syne', sans-serif; }
+        /*text accent doet iets met de kleur van de tekst*/
+        .text-accent { color: #4ECDC4; }
+        /*bg accent doet iets met de kleur van de achtergrond*/
+        .bg-accent { background-color: #4ECDC4; }
+        .bg-danger-custom { background-color: #FF6B6B; }
+        
+        
+       
+
+        /* Fade-up animatie */
+        .fade-up {
+            opacity: 0;
+            /*opacity zorgt ervoor dat het element half-transparant is*/
+            transform: translateY(20px);
+            /*translate 20px zorgt ervoor dat het element 20px naar beneden wordt verplaatst*/
+            animation: fadeUp 1s forwards;
+            /*fadeUp 1s forwards zorgt ervoor dat de animatie 1 seconde duurt en na afloop de laatste staat behoudt*/
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+      
+        /* Custom focus voor inputs */
+        input:focus, textarea:focus {
+            border-color: #4ECDC4;
+            box-shadow: none;
+        }
+.email-button {
+    background: linear-gradient(135deg, #4ECDC4, #4ECDC4);
+    padding: 10px 20px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.email-button a {
+    text-decoration: none;
+    color: #1a1a1a;
+    font-weight: 600;
+    font-size: 16px;
+    display: inline-block;
+}
+
+/* hover effect */
+.email-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+}
+
+/* klik effect */
+.email-button:active {
+    transform: scale(0.96);
+}
+
+
+

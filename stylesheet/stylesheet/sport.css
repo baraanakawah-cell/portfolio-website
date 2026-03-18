@@ -1,0 +1,47 @@
+/*body kleur en schrift geven*/
+body
+ {
+  font-family: "Poppins", sans-serif;
+  
+  background: #4aa3df;
+}
+
+/* Header */
+header 
+{
+  text-align: center;
+  background-color: #4aa3df;
+  color: white;
+  padding: 70px 20px;
+ 
+}
+
+/* Section  */
+section 
+{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 50px 20px;
+}
+
+/* Articles */
+article 
+{
+  background-color: white;
+  width: 320px;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+/* Footer */
+footer
+ {
+  text-align: center;
+  color: white;
+  padding: 40px 20px;
+  }
+
+
+

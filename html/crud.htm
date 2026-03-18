@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notities & Taken</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0e0e10;
+    --surface: #17171a;
+    --surface2: #1f1f24;
+    --border: #2a2a32;
+    --accent: #e8c97e;
+    --accent2: #7eb8e8;
+    --danger: #e87e7e;
+    --text: #f0ede6;
+    --muted: #6b6b7a;
+    --green: #7ee8a2;
+  }
+
+  body {
+    font-family: 'DM Mono', monospace;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.5;
+  }
+
+  .app { max-width: 900px; margin: 0 auto; padding: 48px 24px; }
+
+  header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+
+  .logo span { color: var(--text); font-weight: 400; }
+
+  .stats {
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-align: right;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 4px;
+  }
+
+  .tab {
+    flex: 1;
+    padding: 10px 16px;
+    background: none;
+    border: none;
+    border-radius: 6px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .tab.active { background: var(--accent); color: var(--bg); font-weight: 500; }
+  .tab:not(.active):hover { color: var(--text); }
+
+  .input-area {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 32px;
+    transition: border-color 0.2s;
+  }
+
+  .input-area:focus-within { border-color: var(--accent); }
+
+  .input-row { display: flex; gap: 12px; align-items: flex-start; }
+
+  .input-main { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+
+  input[type="text"], textarea, select {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    padding: 10px 14px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+  }
+
+  input[type="text"]:focus, textarea:focus, select:focus { border-color: var(--accent); }
+  textarea { min-height: 80px; }
+
+  .input-meta { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  select { width: auto; padding: 8px 12px; cursor: pointer; }
+
+  .priority-dots { display: flex; gap: 6px; }
+
+  .priority-dot {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .priority-dot[data-p="1"] { background: var(--green); }
+  .priority-dot[data-p="2"] { background: var(--accent); }
+  .priority-dot[data-p="3"] { background: var(--danger); }
+  .priority-dot.selected { border-color: white; transform: scale(1.2); }
+
+  .btn-add {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+    align-self: flex-end;
+  }
+
+  .btn-add:hover { background: #f5d98e; transform: translateY(-1px); }
+  .btn-add:active { transform: translateY(0); }
+
+  .filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filter-label {
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-right: 4px;
+  }
+
+  .filter-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    padding: 5px 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.04em;
+  }
+
+  .filter-btn.active, .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .search-input { margin-left: auto; width: 200px; padding: 6px 12px; font-size: 0.78rem; }
+
+  .items-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    transition: all 0.2s;
+    animation: slideIn 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+  .item.p-1::before { background: var(--green); }
+  .item.p-2::before { background: var(--accent); }
+  .item.p-3::before { background: var(--danger); }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .item:hover { border-color: #3a3a45; }
+  .item.done { opacity: 0.45; }
+
+  .item-check {
+    width: 20px; height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    transition: all 0.15s;
+  }
+
+  .item.done .item-check { background: var(--green); border-color: var(--green); }
+
+  .item-check::after {
+    content: '✓';
+    font-size: 11px;
+    color: var(--bg);
+    opacity: 0;
+    transition: opacity 0.1s;
+  }
+
+  .item.done .item-check::after { opacity: 1; }
+
+  .item-body { flex: 1; min-width: 0; }
+
+  .item-title { font-size: 0.92rem; color: var(--text); margin-bottom: 4px; word-break: break-word; }
+  .item.done .item-title { text-decoration: line-through; color: var(--muted); }
+
+  .item-content {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .item-footer { display: flex; align-items: center; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+
+  .item-tag {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    border: 1px solid;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .tag-work  { color: var(--accent2); border-color: var(--accent2); }
+  .tag-prive { color: var(--green);   border-color: var(--green); }
+  .tag-idee  { color: #c97ee8;        border-color: #c97ee8; }
+  .tag-overig{ color: var(--muted);   border-color: var(--muted); }
+
+  .item-date { font-size: 0.65rem; color: var(--muted); margin-left: auto; }
+
+  .item-actions { display: flex; flex-direction: column; gap: 6px; opacity: 0; transition: opacity 0.15s; }
+  .item:hover .item-actions { opacity: 1; }
+
+  .action-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    font-size: 12px;
+    width: 28px; height: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+
+  .action-btn:hover { color: var(--text); border-color: var(--text); }
+  .action-btn.delete:hover { color: var(--danger); border-color: var(--danger); }
+
+  .item.editing { border-color: var(--accent); background: var(--surface2); }
+
+  .edit-fields { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+
+  .edit-actions { display: flex; gap: 8px; margin-top: 8px; }
+
+  .btn-save {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 6px;
+    padding: 6px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .btn-save:hover { background: #f5d98e; }
+
+  .btn-cancel {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 14px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-cancel:hover { color: var(--text); border-color: var(--text); }
+
+  .empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+  }
+
+  .empty-icon { font-size: 2.5rem; margin-bottom: 12px; opacity: 0.4; }
+
+  .note-icon {
+    width: 32px; height: 32px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  @media (max-width: 600px) {
+    .logo { font-size: 1.8rem; }
+    .input-row { flex-direction: column; }
+    .search-input { width: 100%; margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="logo">notities<span> & taken</span></div>
+    <div class="stats" id="stats">0 items</div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('all')">Alles</button>
+    <button class="tab" onclick="switchTab('note')">📝 Notities</button>
+    <button class="tab" onclick="switchTab('todo')">✅ Taken</button>
+  </div>
+
+  <div class="input-area">
+    <div class="input-row">
+      <div class="input-main">
+        <input type="text" id="newTitle" placeholder="Titel..." />
+        <textarea id="newContent" placeholder="Inhoud (optioneel)..."></textarea>
+        <div class="input-meta">
+          <select id="newType">
+            <option value="note">📝 Notitie</option>
+            <option value="todo">✅ Taak</option>
+          </select>
+          <select id="newTag">
+            <option value="overig">— Label</option>
+            <option value="work">💼 Werk</option>
+            <option value="prive">🏠 Privé</option>
+            <option value="idee">💡 Idee</option>
+          </select>
+          <div class="priority-dots" title="Prioriteit">
+            <div class="priority-dot selected" data-p="1" onclick="selectPriority(1)"></div>
+            <div class="priority-dot" data-p="2" onclick="selectPriority(2)"></div>
+            <div class="priority-dot" data-p="3" onclick="selectPriority(3)"></div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-add" onclick="addItem()">+ Toevoegen</button>
+    </div>
+  </div>
+
+  <div class="filters">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn active" onclick="setFilter('all', this)">Alle</button>
+    <button class="filter-btn" onclick="setFilter('prive', this)">Privé</button>
+    <button class="filter-btn" onclick="setFilter('work', this)">Werk</button>
+    <button class="filter-btn" onclick="setFilter('idee', this)">Idee</button>
+    <input type="text" class="search-input" id="searchInput" placeholder="Zoeken..." oninput="render()">
+  </div>
+
+  <div class="items-list" id="itemsList"></div>
+</div>
+
+<script>
+  let items = JSON.parse(localStorage.getItem('notities_items') || '[]');
+  let currentTab = 'all';
+  let currentFilter = 'all';
+  let selectedPriority = 1;
+  let editingId = null;
+
+  function save() {
+    localStorage.setItem('notities_items', JSON.stringify(items));
+  }
+
+  function uid() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2);
+  }
+
+  function selectPriority(p) {
+    selectedPriority = p;
+    document.querySelectorAll('.priority-dot').forEach(d => {
+      d.classList.toggle('selected', parseInt(d.dataset.p) === p);
+    });
+  }
+
+  function switchTab(tab) {
+    currentTab = tab;
+    document.querySelectorAll('.tab').forEach((t, i) => {
+      t.classList.toggle('active', ['all','note','todo'][i] === tab);
+    });
+    render();
+  }
+
+  function setFilter(f, el) {
+    currentFilter = f;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    render();
+  }
+
+  function addItem() {
+    const title = document.getElementById('newTitle').value.trim();
+    if (!title) { document.getElementById('newTitle').focus(); return; }
+    const item = {
+      id: uid(),
+      title,
+      content: document.getElementById('newContent').value.trim(),
+      type: document.getElementById('newType').value,
+      tag: document.getElementById('newTag').value,
+      priority: selectedPriority,
+      done: false,
+      date: new Date().toLocaleDateString('nl-NL', { day: 'numeric', month: 'short' })
+    };
+    items.unshift(item);
+    save();
+    document.getElementById('newTitle').value = '';
+    document.getElementById('newContent').value = '';
+    document.getElementById('newType').value = 'note';
+    document.getElementById('newTag').value = 'overig';
+    selectPriority(1);
+    render();
+  }
+
+  function deleteItem(id) {
+    items = items.filter(i => i.id !== id);
+    save(); render();
+  }
+
+  function toggleDone(id) {
+    const item = items.find(i => i.id === id);
+    if (item) { item.done = !item.done; save(); render(); }
+  }
+
+  function startEdit(id) {
+    editingId = id;
+    render();
+    setTimeout(() => {
+      const el = document.getElementById('edit-title-' + id);
+      if (el) el.focus();
+    }, 50);
+  }
+
+  function saveEdit(id) {
+    const item = items.find(i => i.id === id);
+    if (!item) return;
+    const t = document.getElementById('edit-title-' + id).value.trim();
+    if (!t) return;
+    item.title = t;
+    item.content = document.getElementById('edit-content-' + id).value.trim();
+    item.tag = document.getElementById('edit-tag-' + id).value;
+    editingId = null;
+    save(); render();
+  }
+
+  function cancelEdit() { editingId = null; render(); }
+
+  function render() {
+    const search = document.getElementById('searchInput').value.toLowerCase();
+    let filtered = items.filter(item => {
+      if (currentTab !== 'all' && item.type !== currentTab) return false;
+      if (currentFilter !== 'all' && item.tag !== currentFilter) return false;
+      if (search && !item.title.toLowerCase().includes(search) && !item.content.toLowerCase().includes(search)) return false;
+      return true;
+    });
+
+    filtered.sort((a, b) => {
+      if (a.done !== b.done) return a.done ? 1 : -1;
+      return a.priority - b.priority;
+    });
+
+    const list = document.getElementById('itemsList');
+
+    if (filtered.length === 0) {
+      list.innerHTML = `<div class="empty"><div class="empty-icon">${currentTab === 'todo' ? '✅' : '📝'}</div>Geen items gevonden.<br>Voeg iets toe hierboven.</div>`;
+    } else {
+      list.innerHTML = filtered.map(item => {
+        if (item.id === editingId) {
+          return `
+            <div class="item editing p-${item.priority}">
+              ${item.type === 'todo' ? `<div class="item-check" onclick="toggleDone('${item.id}')"></div>` : `<div class="note-icon">📝</div>`}
+              <div class="edit-fields">
+                <input type="text" id="edit-title-${item.id}" value="${escHtml(item.title)}" placeholder="Titel...">
+                <textarea id="edit-content-${item.id}" placeholder="Inhoud...">${escHtml(item.content)}</textarea>
+                <select id="edit-tag-${item.id}">
+                  <option value="overig" ${item.tag==='overig'?'selected':''}>— Label</option>
+                  <option value="work"   ${item.tag==='work'?'selected':''}>💼 Werk</option>
+                  <option value="prive"  ${item.tag==='prive'?'selected':''}>🏠 Privé</option>
+                  <option value="idee"   ${item.tag==='idee'?'selected':''}>💡 Idee</option>
+                </select>
+                <div class="edit-actions">
+                  <button class="btn-save" onclick="saveEdit('${item.id}')">Opslaan</button>
+                  <button class="btn-cancel" onclick="cancelEdit()">Annuleren</button>
+                </div>
+              </div>
+            </div>`;
+        }
+
+        return `
+          <div class="item p-${item.priority}${item.done ? ' done' : ''}">
+            ${item.type === 'todo'
+              ? `<div class="item-check" onclick="toggleDone('${item.id}')"></div>`
+              : `<div class="note-icon">📝</div>`}
+            <div class="item-body">
+              <div class="item-title">${escHtml(item.title)}</div>
+              ${item.content ? `<div class="item-content">${escHtml(item.content)}</div>` : ''}
+              <div class="item-footer">
+                ${item.tag !== 'overig' ? `<span class="item-tag tag-${item.tag}">${{work:'💼 Werk',prive:'🏠 Privé',idee:'💡 Idee'}[item.tag]}</span>` : ''}
+                <span class="item-date">${item.date}</span>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="action-btn" onclick="startEdit('${item.id}')" title="Bewerken">✏️</button>
+              <button class="action-btn delete" onclick="deleteItem('${item.id}')" title="Verwijderen">🗑️</button>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    const total = items.length;
+    const done  = items.filter(i => i.done).length;
+    const notes = items.filter(i => i.type === 'note').length;
+    const todos = items.filter(i => i.type === 'todo').length;
+    document.getElementById('stats').textContent =
+      `${total} items · ${notes} notities · ${todos} taken · ${done} afgerond`;
+  }
+
+  function escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.ctrlKey) addItem();
+  });
+
+  render();
+</script>
+</body>
+</html>

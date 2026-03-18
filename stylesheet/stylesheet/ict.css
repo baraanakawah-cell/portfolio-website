@@ -1,0 +1,46 @@
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  background: #f4f8ff;
+}
+
+/* Header */
+header {
+  text-align: center;
+  background-color: #0077cc;
+  color: white;
+  padding: 70px 20px;
+}
+
+
+
+
+section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 50px 20px;
+}
+
+/* Articles */
+article {
+  background-color: white;
+  width: 320px;
+  border-radius: 18px;
+  padding: 20px;
+  text-align: left;
+}
+
+
+
+
+
+/* Footer */
+footer {
+  background: #003366;
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+}
+

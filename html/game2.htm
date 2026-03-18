@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Game</title>
+    <style>
+        #game {
+            width: 300px;
+            height: 300px;
+            border: 2px solid black;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        #game div {
+            width: 25px;
+            height: 25px;
+            background-color: red;
+            position: absolute;
+            cursor: pointer;
+        }
+
+        #start-game-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <button id="start-game-btn">Start Game</button>
+    <p>Punten: <span id="score">0</span></p>
+    <div id="game"></div>
+
+    <script>
+        const btn = document.getElementById("start-game-btn");
+        const game = document.getElementById("game");
+        const scoreEl = document.getElementById("score");
+        let score = 0;
+
+        btn.addEventListener("click", () => {
+            btn.disabled = true;
+            spawnSquare();
+        });
+
+        function spawnSquare() {
+            const square = document.createElement("div");
+
+            // willekeurige positie binnen game container
+            const x = Math.random() * (game.clientWidth - 25);
+            const y = Math.random() * (game.clientHeight - 25);
+
+            square.style.left = x + "px";
+            square.style.top = y + "px";
+
+            game.appendChild(square);
+
+            square.addEventListener("click", () => {
+                square.remove();
+                score++;                     // score verhogen
+                scoreEl.textContent = score; // score in HTML bijwerken
+                spawnSquare();
+            });
+        }
+    </script>
+</body>
+</html>
+

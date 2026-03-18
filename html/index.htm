@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="nl" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baraa Nakawah Portfolio</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--css koppelen meestal niet nodig-->
+    <link rel="stylesheet" href="../stylesheet/n.css">
+    <!--javascript koppelen-->
+    <script src="../javascript/javascript.js" defer></script>
+</head>
+<body class="body-bg text-white">
+<header>
+<!-- ................Navbar...................... -->
+ <!--claas fixed top laat de navbar bovenaan -->
+ <!--navbar expand md maakt de menu niet als burger maar normale menu-->
+<nav class="navbar navbar-expand-md fixed-top bg-dark">
+
+    <div class="container">
+        <h4 class="navbar-brand">BN.</h4>
+        <!--navbar toggler hamburger menu voor mobiel-->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <!--Het maakt op het scherm een klikbaar icoontje van drie streepjes dat meestal gebruikt wordt om een menu te openen of te sluiten.-->
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!--collapse maakt het menu hamburger voor mobile-->
+        <div class="collapse navbar-collapse" id="navbarNav">
+        <!--ms-auto stuurt de menu items naar rechts-->
+            <ul class="navbar-nav ms-auto">
+
+ <!--menu items-->
+                <li class="nav-item"><a class="nav-link text-white" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#about">Over Mij</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#projecten">Projecten</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</header>
+<main><!--...................... Home Section ...........................-->
+<section id="home" class="d-flex align-items-center text-center min-vh-100">
+    <!--min-vh-100 zorgt ervoor dat de sectie minimaal 100% van de viewport hoogte heeft-->
+    <div class="container">
+        <!--de text uppercase maakt de letter hoofdletters-->
+        <!--tracking widest maakt de letters breder-->
+        <p class="text-accent tracking-widest text-uppercase">Hallo, Ik ben</p>
+
+        <h1 class="font-display display-1 fw-bold">Baraa Nakawah</h1>
+        <!--secondary maakt de tekst grijs-->
+        <!--fade-up animatie-->
+        <p class="lead text-secondary mb-5 fade-up delay-2">Junior Software Developer (Student)</p>
+        <!--flex-wrap maakt dat de knoppen op een nieuwe regel gaan als ze niet op het scherm passen-->
+        <!--justify-content-center centraleert de knoppen op de pagina-->
+       
+
+        <div class="d-flex flex-wrap justify-content-center gap-3 fade-up delay-3">
+        <!--bg-danger-custom maakt de knoppen rood-->
+        <!--flex-wrap zorgt ervoor dat de knoppen op een nieuwe regel gaan als ze niet op het scherm passen-->
+        <!--justify-content-center centraleert de knoppen op de pagina-->
+            <a href="#projecten" class="btn bg-danger-custom text-dark fw-bold rounded-pill px-4 py-2">Bekijk mijn werk</a>
+            <!--border border-accent text-accent maakt de knoppen groen met een groene rand-->
+            <a href="#contact" class="btn border border-accent text-accent fw-bold rounded-pill px-4 py-2">Laten we praten</a>
+        </div>
+    </div>
+</section>
+
+<!--......................................... About Section .................................-->
+<section id="about" class="py-5">
+    <div class="container">
+        <!--align-items-center zorgt ervoor dat de content in het midden staat-->
+        <div class="row justify-content-center ">
+            <!-- Kolom die op taplet schermen de helft van de rij breedte gebruikt -->
+            
+            <!-- Kolom die op tablet schermen de helft van de rij breedte gebruikt -->
+            <div class="col-md-6 text-white text-center">
+                <h2 class=" font-display display-5 mb-2 fade-up">Over Mij</h2>
+                <!--text-secondary maakt de tekst grijs-->
+                <!--fade-up animatie-->
+                <p class="text-secondary mb-4 fade-up delay-1">
+                   Front-end developer met oog voor detail, gepassioneerd door animatie en vastberaden om daarin te groeien.
+                </p>
+                <!--font-display maakt de tekst groen en vet-->
+                <!--text-warning maakt de tekst geel-->
+                <!--delay-2 zorgt ervoor dat de tekst pas na 0.2s verschijnt-->
+                <h3 class="font-display text-warning mb-3 fade-up delay-2">Vaardigheden</h3>
+                <!--flex-wrap maakt dat de badges op een nieuwe regel gaan als ze niet op het scherm passen-->
+                <!--gap-2 zorgt ervoor dat er ruimte is tussen de badges-->
+                <!--delay-3 zorgt ervoor dat de badges pas na 0.3s verschijnen-->
+                <div class="d-flex flex-wrap gap-2 fade-up delay-3 justify-content-center">
+                    <span class="badge bg-dark border border-secondary rounded-pill px-3 py-2">HTML/CSS</span>
+                    <span class="badge bg-dark border border-secondary rounded-pill px-3 py-2">JavaScript</span>
+                    <span class="badge bg-dark border border-secondary rounded-pill px-3 py-2">Bootstrap / Tailwind</span>
+                    <span class="badge bg-dark border border-secondary rounded-pill px-3 py-2">Arduino</span>
+                     <span class="badge bg-dark border border-secondary rounded-pill px-3 py-2">Wordpress</span>
+                      <span class="badge bg-dark border border-secondary rounded-pill px-3 py-2">Figma</span>
+                       <span class="badge bg-dark border border-secondary rounded-pill px-3 py-2">PHP/MySQL</span>
+                        <span class="badge bg-dark border border-secondary rounded-pill px-3 py-2">C#/ Unity</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!--..................................... Projecten Section........................................ -->
+<section id="projecten" class="py-5">
+    <!--mb-5 zorgt ervoor dat er 5px ruimte is onder de container -->
+    <div class="container text-center mb-5">
+        <h2 class="font-display display-5 mb-2 fade-up">Geselecteerde Projecten</h2>
+        <p class="text-secondary fade-up delay-1">Projecten die mijn vaardigheden laten zien</p>
+    </div>
+    <div class="container">
+        <div class="row g-4">
+            <!-- Project Card -->
+
+<!--gemeente website-->
+
+             <!--col-md-6 col-lg-4 zorgt ervoor dat de kolom op kleinere schermen 6 kolommen breed is en op grotere schermen 4 kolommen breed is -->
+            <div class="col-md-6 col-lg-4 fade-up delay-1">
+                <!--h-100 zorgt ervoor dat de kolom de volledige hoogte van de container inneemt -->
+                <div class="card project-card bg-dark text-white h-100 border-secondary rounded-3">
+                    <img src="https://bureautoerisme.nl/wp-content/uploads/2022/06/9886-RBT-MenW-XL-%C2%A9hansbarten2022.jpg" class="card-img-top rounded-top" style="height:12rem; object-fit:cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">Gemeente Website</h5>
+                        <p class="card-text text-secondary">Een moderne interface voor gemeentelijke diensten.</p>
+                         <a href="gemeente.htm" class="btn btn-outline-light mt-2">Bekijk project</a>
+                    </div>
+                </div>
+            </div>
+ <!-- Arduino Project -->
+            <div class="col-md-6 col-lg-4 fade-up delay-2">
+                <div class="card project-card bg-dark text-white h-100 border-secondary rounded-3">
+                    <img src="../bestanden/arduino.png" class="card-img-top rounded-top" style="height:12rem; object-fit:cover;">
+                       <div class="card-body">
+                        <h5 class="card-title">Arduino Project</h5>
+                        <p class="card-text text-secondary">Hardware integratie met slimme sensoren.</p>
+                        <a href="../bestanden/WhatsApp Video 2026-03-13 at 00.37.12.mp4" class="btn btn-outline-light mt-2">bekijk project</a>
+                    </div>
+                </div>
+            </div>
+
+<!-- Portfolio website -->
+             <div class="col-md-6 col-lg-4 fade-up delay-3">
+                <div class="card project-card bg-dark text-white h-100 border-secondary rounded-3">
+                    <img src="https://movek.co/wp-content/uploads/2023/10/responsive-website-agency-1.webp" class="card-img-top rounded-top" style="height:12rem; object-fit:cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">Portfolio website</h5>
+                        <p class="card-text text-secondary">Interactief responsive website</p>
+                        <a href="index.htm" class="btn btn-outline-light mt-2">Bekijk project</a>
+                    </div>
+                </div>
+            </div>
+
+ 
+                      <!-- Unity -->
+            <div class="col-md-6 col-lg-4 fade-up delay-2">
+                <div class="card project-card bg-dark text-white h-100 border-secondary rounded-3">
+                    <img src="../bestanden/unitygame.png" class="card-img-top rounded-top" style="height:12rem; object-fit:cover;">
+                       <div class="card-body">
+                        <h5 class="card-title">Unity game Project</h5>
+                        <a href="../bestanden/Screen Recording 2026-03-12 235637.mp4" class="btn btn-outline-light mt-2">bekijk project</a>
+                    </div>
+                </div>
+            </div>
+                    </div>
+                  </div>
+             </section>
+
+
+
+<!-- .......................................Contact Section ....................................-->
+<!--py-5 zorgt ervoor dat er 5px ruimte is boven en onder de container -->
+<section id="contact" class="py-5" style="background-color:#111111;">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="font-display mb-2 fade-up">Contact</h2>
+      <p class="text-secondary fade-up delay-1">Heb je een vraag of wil je samenwerken?</p>
+    </div>
+<!--............................... Footer .........................................-->
+<footer class="text-center text-secondary py-3  mt-auto">
+    
+  
+  <div class="email-button bg-accent d-inline-block mt-2 p-2 rounded text-dark fw-bold">
+    <a href="https://mail.google.com/mail/?view=cm&to=Baraanaqawh2007@gmail.com">
+      Stuur mij een e-mail
+    </a>
+  
+  </div>
+</footer>
+    
+  </div>
+</section>
+</main>
+
+
+
+
+
+<!--deze maakt de hamburger menu werkend-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+/*body kleur en schrift veranderen*/
+body 
+{
+  background-color: #f5f9ff;
+  font-family: "Poppins", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header kleur en positie geven*/
+header
+ {
+  text-align: center;
+  background-color: #4682b4;
+  color: white;
+  padding: 60px 20px;
+  
+}
+
+
+
+/* Sectione met articles over het beste plekken te bezoeken in het gemeente */
+ section 
+ {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  padding: 50px 20px;
+}
+
+/* artikelen */
+article
+ {
+  background-color: white;
+  width: 320px;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: left;
+}
+
+/*fotos van de articelen*/
+article img
+ {
+  width: 100%;/*deze element past de foto binnen de article*/
+  height: 200px;
+  object-fit: cover;/*deze maakt de foto mooier en duidelijker*/
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+/* footer kleur en positie bepalen */
+footer {
+  background: #2e5984;
+  color: white;
+  padding: 50px 20px;
+  text-align: center;
+}
+/*articles in de footer */
+footer article {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 20px;
+  width: 250px;
+}
+

@@ -1,0 +1,92 @@
+/* body kleur en schrift geven */
+body 
+{
+  font-family: "Poppins", Arial, sans-serif;
+  margin: 0;
+  background-color: rgb(238, 236, 236);
+  color: #333;
+  text-align: center;
+}
+
+/* header kleuren geven*/
+header
+ {
+  background-color: #0056b3;
+  color: white;
+  padding: 60px 20px;
+  
+}
+
+
+/* de spatie tussen de fotos aanpassen*/
+.gallery
+ {
+  display: flex;
+  justify-content: center;
+  gap: 0px;
+  margin: 40px 0;
+}
+
+/*de maat van de fotos aanpassen*/
+.gallery img
+ {
+  width: 350px;
+  height: 100px;
+  object-fit: cover;/*het maakt de foto duidelijker*/
+  border-radius: 12px;
+}
+
+/*  informatie in een blokje over de resturant */
+.informatie
+ {
+  margin: 30px auto;
+  width: 600px;
+  text-align: left;
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+ 
+}
+
+/*  footer kleur en padding geven  */
+footer
+ {
+  background: #003366;
+  color: white;
+  padding: 40px 20px;
+}
+
+
+/*menu over de beste tijden om naar het resurant te komen*/
+.beste-tijden
+ {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  text-align: left;
+}
+/*menu over de betaalmogelijkheden*/
+.Betaalmogelijkheden
+{
+ display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  text-align: left;
+}
+
+
+/*hoe groot de fotos zijn*/
+.gallery img
+ {
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+}
+
+/*de h1 in de footer in de center zitten*/
+footer
+ {
+  text-align: center;
+}
